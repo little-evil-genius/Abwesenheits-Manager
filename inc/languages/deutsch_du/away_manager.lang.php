@@ -6,7 +6,7 @@ $l['away_manager_index_team'] = "Abwesende Teammitglieder:innen:";
 $l['away_manager_index_awayspan_startdate'] = "- ({1} - {2})";
 $l['away_manager_index_awayspan_enddate'] = "bis {1}";
 $l['away_manager_index_awayreason_none'] = "-";
-$l['away_manager_index_characterlist'] = "{1} ({2})";
+$l['away_manager_index_characterlist'] = "<b>{1}</b> ({2})";
 $l['away_manager_index_bit_none'] = "Aktuell gibt es keine Abwesenheitsmeldungen.";
 
 $l['away_manager_usercp_startdate'] = "Abwesend ab:";
@@ -25,7 +25,7 @@ $l['away_manager_list_legend_reason'] = "Abwesenheitsgrund";
 $l['away_manager_list_awayspan_startdate'] = "von {1} bis {2}";
 $l['away_manager_list_awayspan_enddate'] = "bis {1}";
 $l['away_manager_list_awayreason_none'] = "-";
-$l['away_manager_list_both'] = "{1} ({2})";
+$l['away_manager_list_both'] = "<b>{1}</b> ({2})";
 
 $l['away_manager_showteam'] = "abwesende Teamitglieder:innen";
 $l['away_manager_showteam_none'] = "aktuell sind alle Teammitglieder:innen anwesend.";
