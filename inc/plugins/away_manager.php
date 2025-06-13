@@ -166,8 +166,6 @@ function away_manager_settings_peek(&$peekers){
         $peekers[] = 'new Peeker($(".setting_away_manager_index"), $("#row_setting_away_manager_index_split, #row_setting_away_manager_span"),/1/,true)';
         $peekers[] = 'new Peeker($(".setting_away_manager_list"), $("#row_setting_away_manager_list_allowgroups, #row_setting_away_manager_list_nav, #row_setting_away_manager_list_menu, #row_setting_away_manager_list_type"),/1/,true)';
         $peekers[] = 'new Peeker($("#setting_away_manager_list_type"), $("#row_setting_away_manager_list_menu"), /^0/, false)';
-        $peekers[] = 'new Peeker($(".setting_away_manager_index_split"), $("#row_setting_away_manager_teamgroups"), /1/, true);';
-        $peekers[] = 'new Peeker($(".setting_away_manager_showteam"), $("#row_setting_away_manager_teamgroups"), /1/, true);';
         $peekers[] = 'new Peeker($(".setting_away_manager_post"), $("#row_setting_away_manager_post_thread"), /1/, true);';
     }
 }
@@ -415,15 +413,21 @@ function away_manager_index() {
             // beides
             else if ($display_name == 2) {
                 $playername = away_manager_playername($userID);
-                $accountArray = away_manager_get_allchars($userID);  
-                $characterlistArray = array();                  
-                foreach ($accountArray as $charactername) {
-                    if ($playername == $charactername) {
-                        continue;
+                if ($display_setting == 1) {
+                    $characterlist = get_user($userID)['username'];
+                } else {
+                
+                    $accountArray = away_manager_get_allchars($userID);  
+                    $characterlistArray = array();                  
+                    foreach ($accountArray as $charactername) {
+                        if ($playername == $charactername) {
+                            continue;
+                        }
+                        $characterlistArray[] = $charactername;                
                     }
-                    $characterlistArray[] = $charactername;
+
+                    $characterlist = implode(', ', $characterlistArray);
                 }
-                $characterlist = implode(', ', $characterlistArray);
                 $playername = build_profile_link($playername, $userID);
                 $name = $lang->sprintf($lang->away_manager_index_characterlist, $playername, $characterlist);
             }
@@ -472,15 +476,21 @@ function away_manager_index() {
             // beides
             else if ($display_name == 2) {
                 $playername = away_manager_playername($teamID);
-                $accountArray = away_manager_get_allchars($teamID);  
-                $characterlistArray = array();                  
-                foreach ($accountArray as $charactername) {
-                    if ($playername == $charactername) {
-                        continue;
+                if ($display_setting == 1) {
+                    $characterlist = get_user($teamID)['username'];
+                } else {
+                
+                    $accountArray = away_manager_get_allchars($teamID);  
+                    $characterlistArray = array();                  
+                    foreach ($accountArray as $charactername) {
+                        if ($playername == $charactername) {
+                            continue;
+                        }
+                        $characterlistArray[] = $charactername;                
                     }
-                    $characterlistArray[] = $charactername;
+
+                    $characterlist = implode(', ', $characterlistArray);
                 }
-                $characterlist = implode(', ', $characterlistArray);
                 $playername = build_profile_link($playername, $teamID);
                 $name = $lang->sprintf($lang->away_manager_index_characterlist, $playername, $characterlist);
             }
@@ -574,15 +584,21 @@ function away_manager_index() {
             // beides
             else if ($display_name == 2) {
                 $playername = away_manager_playername($userID);
-                $accountArray = away_manager_get_allchars($userID);  
-                $characterlistArray = array();                  
-                foreach ($accountArray as $charactername) {
-                    if ($playername == $charactername) {
-                        continue;
+                if ($display_setting == 1) {
+                    $characterlist = get_user($userID)['username'];
+                } else {
+                
+                    $accountArray = away_manager_get_allchars($userID);  
+                    $characterlistArray = array();                  
+                    foreach ($accountArray as $charactername) {
+                        if ($playername == $charactername) {
+                            continue;
+                        }
+                        $characterlistArray[] = $charactername;                
                     }
-                    $characterlistArray[] = $charactername;
+
+                    $characterlist = implode(', ', $characterlistArray);
                 }
-                $characterlist = implode(', ', $characterlistArray);
                 $playername = build_profile_link($playername, $userID);
                 $name = $lang->sprintf($lang->away_manager_index_characterlist, $playername, $characterlist);
             }
@@ -1099,12 +1115,18 @@ function away_manager_misc() {
                         if ($characterUID == $userID) {
                             continue;
                         }
-                    }          
+                    } else if ($display_name == 2) {
+                        if ($charactername === get_user($userID)['username']) {
+                            continue;
+                        }
+                    }
                     else {
                         if ($charactername === $playername) {
                             continue;
                         }
                     }
+
+
             
                     // Nur Gruppenfarbe
                     $characternameFormatted = format_name($charactername, get_user($characterUID)['usergroup'], get_user($characterUID)['displaygroup']);	
