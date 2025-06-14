@@ -906,10 +906,17 @@ function away_manager_do_startdate() {
             $userhandler->update_user();
 
             // ACCOUNTSWITCHER
-            $plugins_cache = $cache->read('plugins');
-            if (is_array($plugins_cache) && is_array($plugins_cache['active']) && $plugins_cache['active']['accountswitcher']) {
-                require_once MYBB_ROOT."inc/plugins/accountswitcher/as_usercp.php";
-                accountswitcher_set_away();
+            $accountArray = away_manager_get_allchars($mybb->user['uid']);          
+            foreach ($accountArray as $characterUID => $charactername) {
+
+                $updated_record = array(
+                    "away" => 1,
+                    "date" => $awaydate,
+                    "returndate" => $returndate,
+                    "awayreason" => $mybb->get_input('awayreason')
+                );
+
+                $db->update_query('users', $updated_record, "uid='".$characterUID."'");
             }
         }
     }
