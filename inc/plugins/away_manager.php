@@ -909,14 +909,19 @@ function away_manager_do_startdate() {
             $accountArray = away_manager_get_allchars($mybb->user['uid']);          
             foreach ($accountArray as $characterUID => $charactername) {
 
-                $updated_record = array(
-                    "away" => 1,
-                    "date" => $awaydate,
-                    "returndate" => $returndate,
-                    "awayreason" => $mybb->get_input('awayreason')
-                );
+                // Set up user handler.
+                require_once MYBB_ROOT."inc/datahandlers/user.php";        
+                $userhandler = new UserDataHandler("update");
 
-                $db->update_query('users', $updated_record, "uid='".$characterUID."'");
+                $switcher = array(
+                    "uid" => $characterUID,
+                    "away" => $away,
+                );
+                $switcheruserhandler->set_data($switcher);
+                if ($switcheruserhandler->validate_user()) {
+                    $switcheruserhandler->update_user();
+                }
+
             }
         }
     }
