@@ -130,8 +130,8 @@ function away_manager_activate() {
     require MYBB_ROOT."/inc/adminfunctions_templates.php";
 
     // VARIABLEN EINFÜGEN
-    find_replace_templatesets('index_boardstats', '#'.preg_quote('{$bbclosedwarning}').'#', '{$birthdays}{$away_manager_index}');
-    find_replace_templatesets('usercp_profile_away', '#'.preg_quote('<tr><td colspan="3"><span class="smalltext">{$lang->return_date}</span></td>').'#', '{$awaystartdate} <tr><td colspan="3"><span class="smalltext">{$lang->return_date}</span></td>');
+    find_replace_templatesets('index_boardstats', '#'.preg_quote('{$birthdays}').'#', '{$birthdays}{$away_manager_index}');
+    find_replace_templatesets('usercp_profile_away', '#(<tr>\s*<td\s+colspan="3">\s*<span\s+class="smalltext">\{\$lang->return_date\}</span>\s*</td>\s*</tr>)#i','{$awaystartdate}$1');
 }
  
 // Diese Funktion wird aufgerufen, wenn das Plugin deaktiviert wird.
