@@ -910,18 +910,17 @@ function away_manager_do_startdate() {
             foreach ($accountArray as $characterUID => $charactername) {
 
                 // Set up user handler.
-                require_once MYBB_ROOT."inc/datahandlers/user.php";        
+                require_once MYBB_ROOT."inc/datahandlers/user.php";            
                 $userhandler = new UserDataHandler("update");
 
                 $switcher = array(
                     "uid" => $characterUID,
                     "away" => $away,
                 );
-                $switcheruserhandler->set_data($switcher);
-                if ($switcheruserhandler->validate_user()) {
-                    $switcheruserhandler->update_user();
+                $userhandler->set_data($switcher);
+                if ($userhandler->validate_user()) {
+                    $userhandler->update_user();
                 }
-
             }
         }
     }
