@@ -455,7 +455,7 @@ function away_manager_index() {
             // nur Rückkehrdatum
             else {
                 $returndate = DateTime::createFromFormat('d-n-Y', get_user($teamID)['returndate']);
-                $lang->sprintf($lang->away_manager_index_awayspan_enddate, $returndate->format('d.m.Y'));
+                $awayspan = $lang->sprintf($lang->away_manager_index_awayspan_enddate, $returndate->format('d.m.Y'));
             }
          
             if (!empty(get_user($teamID)['awayreason'])) {
@@ -563,7 +563,7 @@ function away_manager_index() {
             // nur Rückkehrdatum
             else {
                 $returndate = DateTime::createFromFormat('d-n-Y', get_user($userID)['returndate']);
-                $lang->sprintf($lang->away_manager_index_awayspan_enddate, $returndate->format('d.m.Y'));
+                $awayspan = $lang->sprintf($lang->away_manager_index_awayspan_enddate, $returndate->format('d.m.Y'));
             }
          
             if (!empty(get_user($userID)['awayreason'])) {
@@ -1080,7 +1080,7 @@ function away_manager_misc() {
                 $startdate = date('d.m.Y', get_user($userID)['awaydate']);
                 $awayspan = $lang->sprintf($lang->away_manager_list_awayspan_startdate, $startdate, $returndate->format('d.m.Y'));
             } else {
-                $lang->sprintf($lang->away_manager_list_awayspan_enddate, $returndate->format('d.m.Y'));
+                $awayspan = $lang->sprintf($lang->away_manager_list_awayspan_enddate, $returndate->format('d.m.Y'));
             }
 
             if (!empty(get_user($userID)['awayreason'])) {
