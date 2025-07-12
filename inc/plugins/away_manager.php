@@ -130,6 +130,7 @@ function away_manager_activate() {
     require MYBB_ROOT."/inc/adminfunctions_templates.php";
 
     // VARIABLEN EINFÜGEN
+    find_replace_templatesets('showteam', '#'.preg_quote('{$grouplist}').'#', '{$away_manager_team}{$grouplist}');
     find_replace_templatesets('index_boardstats', '#'.preg_quote('{$birthdays}').'#', '{$birthdays}{$away_manager_index}');
     find_replace_templatesets('usercp_profile_away', '#(<tr>\s*<td\s+colspan="3">\s*<span\s+class="smalltext">\{\$lang->return_date\}</span>\s*</td>\s*</tr>)#i','{$awaystartdate}$1');
 }
@@ -140,6 +141,7 @@ function away_manager_deactivate() {
     require MYBB_ROOT."/inc/adminfunctions_templates.php";
 
     // VARIABLEN ENTFERNEN
+	find_replace_templatesets("showteam", "#".preg_quote('{$away_manager_team}')."#i", '', 0);
 	find_replace_templatesets("index_boardstats", "#".preg_quote('{$away_manager_index}')."#i", '', 0);
 	find_replace_templatesets("usercp_profile_away", "#".preg_quote('{$awaystartdate}')."#i", '', 0);
 
@@ -1174,9 +1176,9 @@ function away_manager_misc() {
 // SHOWTEAM
 function away_manager_showteam() {
 
-    global $db, $mybb, $lang, $templates, $theme, $header, $headerinclude, $footer, $awaymanager_team, $userbit;
+    global $db, $mybb, $lang, $templates, $theme, $header, $headerinclude, $footer, $away_manager_team, $userbit;
 
-    $awaymanager_team = "";
+    $away_manager_team = "";
     if ($mybb->settings['away_manager_showteam'] == 0) return;
 
     $lang->load('away_manager');
@@ -1190,7 +1192,7 @@ function away_manager_showteam() {
         // additionalgroups
         $additional = [];
         foreach ($teamgroups as $group) {
-            $additional[] = "NOT (concat(',',additionalgroups,',') LIKE '%,".$group.",%')";
+           $additional[] = "CONCAT(',', additionalgroups, ',') LIKE '%,".$group.",%'";
         }
         // usergroup
         $usergroup = implode(',', array_map('intval', $teamgroups));
@@ -1292,7 +1294,7 @@ function away_manager_showteam() {
         eval("\$userbit = \"".$templates->get("awaymanager_showteam_user_none")."\";");  
     }
 
-    eval("\$awaymanager_team = \"".$templates->get("awaymanager_showteam")."\";");
+    eval("\$away_manager_team = \"".$templates->get("awaymanager_showteam")."\";");
 }
 
 // ONLINE-LOCATION
@@ -1839,6 +1841,7 @@ function away_manager_stylesheet() {
 
         .away_manager_showteam-time {
         width: 25%;
+        text-align: center;
         }',
 		'cachefile' => 'away_manager.css',
 		'lastmodified' => TIME_NOW
