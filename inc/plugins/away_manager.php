@@ -738,6 +738,26 @@ function away_manager_do_startdate() {
 
         $userhandler->set_data($user);
         if ($userhandler->validate_user()) {
+           
+            $userhandler->update_user();
+
+            // ACCOUNTSWITCHER
+            $accountArray = away_manager_get_allchars($mybb->user['uid']);  
+            foreach ($accountArray as $characterUID => $charactername) { 
+
+                // Set up user handler.
+                require_once MYBB_ROOT."inc/datahandlers/user.php";            
+                $userhandler = new UserDataHandler("update");
+
+                $switcher = array(
+                    "uid" => $characterUID,
+                    "away" => $away,
+                );
+                $userhandler->set_data($switcher);
+                if ($userhandler->validate_user()) {
+                    $userhandler->update_user();
+                }
+            }
 
             // ABWESENHEITSPOST POSTEN
             if ($post_needed) {
@@ -900,26 +920,6 @@ function away_manager_do_startdate() {
                     // Visible post
                     redirect("usercp.php?action=profile", $lang->redirect_profileupdated);
                     exit;
-                }
-            }
-           
-            $userhandler->update_user();
-
-            // ACCOUNTSWITCHER
-            $accountArray = away_manager_get_allchars($mybb->user['uid']);          
-            foreach ($accountArray as $characterUID => $charactername) {
-
-                // Set up user handler.
-                require_once MYBB_ROOT."inc/datahandlers/user.php";            
-                $userhandler = new UserDataHandler("update");
-
-                $switcher = array(
-                    "uid" => $characterUID,
-                    "away" => $away,
-                );
-                $userhandler->set_data($switcher);
-                if ($userhandler->validate_user()) {
-                    $userhandler->update_user();
                 }
             }
         }
