@@ -18,6 +18,15 @@ Optional können abwesende Teammitglieder direkt auf der Teamseite hervorgehoben
 ## Startdatum & Automatischer Post
 Mitglieder können im Profil nicht nur ein Rückkehrdatum, sondern auch ein Startdatum für ihre Abwesenheit festlegen. In Foren, in denen es üblich ist, Abwesenheiten in einem bestimmten Thread zu posten, übernimmt das Plugin diesen Schritt automatisch: Sobald eine Abwesenheit im Profil eingetragen wird, wird ein Beitrag im vorgesehenen Thread erstellt.
 
+## (Farbige) Accountnamen
+Das Plugin bietet drei verschiedene Darstellungsformen von den Accountnamen. Man kann in den Templates "awaymanager_list_user" (Abwesenheitsliste), "awaymanager_showteam_user" (Teamseite) die Anzeigeform anpassen.<br>
+Nur Gruppenfarbe: {$charactes['nameFormatted']}
+Nur als Profil-Link: {$charactes['nameLink']}
+Gruppenfarbe + Link kombiniert: {$charactes['nameFormattedLink']}
+
+## Abwesenheitsgrund
+Wer möchte kann mit der Variable {$awayreason} den Abwesenheitsgrund zuätzlich ausgeben in den Templates "awaymanager_index_bit" (Index), "awaymanager_list_user" (Abwesenheitsliste) und "awaymanager_showteam_user" (Teamseite).
+
 # Vorrausetzungen
 - Das ACP Modul <a href="https://github.com/little-evil-genius/rpgstuff_modul" target="_blank">RPG Stuff</a> <b>muss</b> vorhanden sein.
 - Der <a href="https://doylecc.altervista.org/bb/downloads.php?dlid=26&cat=2" target="_blank">Accountswitcher</a> von doylecc <b>muss</b> installiert sein.
@@ -62,6 +71,7 @@ Genauso kann auch das Listen-Menü angezeigt werden, wenn man das <a href="https
 # Neue Variablen
 - index_boardstats: {$away_manager_index}
 - usercp_profile_away: {$awaystartdate}
+- showteam: {$away_manager_team}
 
 # Neues CSS - away_manager.css
 Es wird automatisch in jedes bestehende und neue Design hinzugefügt. Man sollte es einfach einmal abspeichern - auch im Default. Nach einem MyBB Upgrade fehlt der Stylesheets im Masterstyle? Im ACP Modul "RPG Erweiterungen" befindet sich der Menüpunkt "Stylesheets überprüfen" und kann von hinterlegten Plugins den Stylesheet wieder hinzufügen.
@@ -135,6 +145,7 @@ Es wird automatisch in jedes bestehende und neue Design hinzugefügt. Man sollte
 
 .away_manager_showteam-time {
 	width: 25%;
+        text-align: center;
 }
 ```
 
@@ -143,3 +154,9 @@ Es wird automatisch in jedes bestehende und neue Design hinzugefügt. Man sollte
 misc.php?action=away_manager
 
 # Demo
+<img src="https://stormborn.at/plugins/awaymanager_index.png">
+<img src="https://stormborn.at/plugins/awaymanager_index2.png">
+<img src="https://stormborn.at/plugins/awaymanager_list.webp">
+<img src="https://stormborn.at/plugins/awaymanager_showteam.png">
+<img src="https://stormborn.at/plugins/awaymanager_startdate.png">
+<img src="https://stormborn.at/plugins/awaymanager_post.png">
