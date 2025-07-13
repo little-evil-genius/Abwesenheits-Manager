@@ -366,6 +366,11 @@ function away_manager_index() {
                     $mainUid = $uid;
                 }
 
+                $awayCheckMain = $db->fetch_field($db->simple_select("users", "away", "uid = '".$mainUid."' AND away = 1"), "away");
+                if (empty($awayCheckMain)) {
+                    continue;
+                }
+
                 if (in_array($mainUid, $awayteamIDs) || in_array($mainUid, $awayuserIDs)) {
                     continue;
                 }
@@ -1139,8 +1144,6 @@ function away_manager_misc() {
                         }
                     }
 
-
-            
                     // Nur Gruppenfarbe
                     $characternameFormatted = format_name($charactername, get_user($characterUID)['usergroup'], get_user($characterUID)['displaygroup']);	
                     // Nur Link
