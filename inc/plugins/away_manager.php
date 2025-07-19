@@ -513,6 +513,10 @@ function away_manager_index() {
 
     } else {
 
+        $allGroups = array_merge($userArray, $teamArray);
+        $allGroupsClean = array_unique($allGroups);
+        $allUsergroupsList = implode(',', $allGroupsClean);
+
         $awaylist_query = $db->query("SELECT uid, as_uid FROM ".TABLE_PREFIX."users
         WHERE away = 1 
         ORDER BY returndate DESC
@@ -531,7 +535,7 @@ function away_manager_index() {
 
             // Accounts einzeln
             if ($display_setting == 1) {
-                if (is_member($usergroups_list, $uid)) {
+                if (is_member($allUsergroupsList, $uid)) {
                     $awayuserIDs[] = $uid;
                 }
             } 
@@ -553,7 +557,7 @@ function away_manager_index() {
                     continue;
                 }
 
-                if (is_member($usergroups_list, $mainUid)) {
+                if (is_member($allUsergroupsList, $mainUid)) {
                     $awayuserIDs[] = $mainUid;
                 }
             }
